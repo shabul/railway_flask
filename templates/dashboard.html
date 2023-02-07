@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+  <link rel="stylesheet" href="../static/css/datepicker_ui.css" />
+
+  <!-- Bootstrap CSS File -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../static/css/bootstrap-multiselect.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
+<!--   <link href="{{ url_for('static', filename='css/icofont.min.css') }}" rel="stylesheet" /> -->
+  <!-- Libraries CSS Files -->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css" /> -->
+
+  <!-- Main Stylesheet File -->
+  <link href="../static/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/fixedcolumns/4.0.1/css/fixedColumns.dataTables.min.css" />
+
+
+
+    
+  </head>
+
+    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <title>Home</title> -->
+</head>
+<style>
+    .display table {
+      width: 80%;
+    }
+  
+    .display th {
+      color: white;
+      background: #87ceeb;
+      height: 50px;
+    }
+  
+    .display td {
+      height: 50px;
+    }
+  
+    .center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  
+    .stylebutton {
+      margin-left: 500px;
+    }
+  
+    .ui-datepicker {
+      width: 18em;
+      margin-top: 70px;
+    }
+  
+    h1 {
+      color: green;
+    }
+  
+    ul.multiselect-container {
+      height: 250px;
+      overflow: scroll;
+      overflow-x: hidden;
+    }
+
+    
+    
+  </style>
+
+<body>
+
+   <div class="container-fluid header-wrapper sticky-top mb-5 p-0">
+    <div class="container">
+      <header>
+        <nav class="navbar navbar-expand-lg p-0">
+         
+          
+          <a class="navbar-brand pl-0" href="/home">
+            <img src=/static/images/title_logo.png alt="no image" height="72" />
+          </a>
+          <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav">
+            <span class="navbar-toggler-icon"><i class="material-icons">menu</i></span>
+          </button>
+
+          <!--  Banner part start        -->
+          <div class="collapse navbar-collapse main-menu text-left" id="nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                <a class="nav-link swipe-up" href="/home">
+                  <span>Home</span></a>
+              </li>
+              <li class="nav-item">
+                <a style="padding:10px;" class="nav-link swipe-up" href="/book_appointment">
+                  <span >Book Appointment</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/inpatient_entry">
+                  <span>Inpatient Entry</span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link swipe-up" href="/view_dashboard">
+                  <span>Dashboard</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/view_stats">
+                  <span>Statistics</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link swipe-up" href="/logout">
+                  <span>Logout</span></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+    </div>
+  </div>
+
+  <!-- -------------Nav bar end------------------ -->
+  
+  <div class="container-fluid content-wrapper mb-5 p-0">
+    <div class="container wrapper services col-md-10">
+      <div class="row">
+        <div class="col-6 title">
+          <h2>Appointment Records</h2>
+        </div>
+      </div>
+      <table id="app_table" ></table>          
+    </div>
+  </div>
+
+  <div class="container-fluid content-wrapper mb-5 p-0">
+    <div class="container wrapper services col-md-10">
+      <div class="row">
+        <div class="col-6 title">
+          <h2>Inpatient Records</h2>
+        </div>
+      </div>
+      <table id="inpatient_table" ></table>          
+    </div>
+  </div>
+
+</body>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+
+<script src="../static/js/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/bootstrap-multiselect.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript"
+  src="https://cdn.datatables.net/fixedcolumns/4.0.1/js/dataTables.fixedColumns.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(window).on("load", appointment_data);
+    function appointment_data() {
+	$('#app_table').show();
+        $('#app_table').DataTable( {
+            ajax:{
+              type: "POST",
+
+              url: "/appoint_data",
+              "dataType": "json",
+              "dataSrc": "data",
+              "contentType": "application/json"
+              // dataSrc: 'responseData',
+              // "data": {start: "HI"},
+            },
+            fixedColumns: true,
+            lengthMenu: [
+              [10, 25, 50,-1],
+              [10, 25, 50, "All"],
+            ],
+            columns: [
+              { title: "Appointment Id", data: "appointment_id" },
+              { title: "Patient Name",data: "patient_name"},
+              { title: "Gender", data:"gender"},
+              { title: "Age", data:"age"},
+              { title: "Medical Complications", data:"med_comp"},
+              { title: "Height", data:"height"},
+              { title: "Weight", data:"weight"},
+              { title: "Appointment Date", data:"app_date"},
+              { title: "Appointment Time", data:"app_time"},
+              { title: "Doctor Name", data:"dr_name"},
+              { title: "Address", data:"address"},
+            ]
+
+        });
+
+    };
+
+    $(window).on("load", patient_data);
+    function patient_data() {
+	$('#inpatient_table').show();
+        $('#inpatient_table').DataTable( {
+            ajax:{
+              type: "POST",
+
+              url: "/inpatient_data",
+              "dataType": "json",
+              "dataSrc": "data",
+              "contentType": "application/json"
+              // dataSrc: 'responseData',
+              // "data": {start: "HI"},
+            },
+            fixedColumns: true,
+            lengthMenu: [
+              [10, 25, 50,-1],
+              [10, 25, 50, "All"],
+            ],
+            columns: [
+              { title: "Patient Id", data: "patient_id" },
+              { title: "Patient Name",data: "patient_name"},
+              { title: "Date of Birth",data: "dob"},
+              { title: "Gender", data:"gender"},
+              { title: "Admitted Room Type", data:"room_type"},
+              { title: "Insurance Availability", data:"insurance"},
+              { title: "Employment Type", data:"emp_type"},
+              { title: "Contact Person Name", data:"contact_person"},
+              { title: "Phone Number", data:"phone_number"},
+              { title: "Doctor Name", data:"dr_name"},
+              { title: "Admit Date", data:"admit_date"},
+              { title: "Admit Time", data:"admit_time"},
+              { title: "Minor/Major",data: "minor"},
+              { title: "Accident Case",data: "accident"},
+        ]
+
+} );
+
+      };
+
+
+</script>
+
+
+</html>
